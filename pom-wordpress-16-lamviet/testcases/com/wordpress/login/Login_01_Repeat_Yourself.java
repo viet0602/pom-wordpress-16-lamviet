@@ -11,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 
-public class Login_01_ValidateLoginForm {
+public class Login_01_Repeat_Yourself {
 	WebDriver driver;
 	String rootFolderPath = System.getProperty("user.dir");
 	By emailTextboxBy = By.xpath("//input[@id='usernameOrEmail']");
