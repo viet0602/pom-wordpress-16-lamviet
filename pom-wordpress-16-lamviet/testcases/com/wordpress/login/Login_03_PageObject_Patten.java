@@ -11,8 +11,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import common.AbstractPage;
-import pageObjects.DashBoardPageObject;
-import pageObjects.LoginPageObject;
+import pageObjects.WordPress.DashBoardPageObject;
+import pageObjects.WordPress.LoginPageObject;
 
 public class Login_03_PageObject_Patten extends AbstractPage {
 	WebDriver driver;
