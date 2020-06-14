@@ -24,8 +24,8 @@ public class LoginPageObject extends AbstractPage {
 	}
 
 	public void inputToUserIDTextBox(String userIDvalue) {
-		waitForElementVisible(driver, LoginPageUI.USER_ID_TEXTBOX);
-		sendkeyToElement(driver, LoginPageUI.USER_ID_TEXTBOX, userIDvalue);
+		waitForElementVisible(driver, LoginPageUI.USER_ID);
+		sendkeyToElement(driver, LoginPageUI.USER_ID, userIDvalue);
 
 	}
 
@@ -36,8 +36,8 @@ public class LoginPageObject extends AbstractPage {
 	}
 
 	public void inputPwTextBox(String pwValue) {
-		waitForElementVisible(driver, LoginPageUI.PW_ID_TEXTBOX);
-		sendkeyToElement(driver, LoginPageUI.PW_ID_TEXTBOX, pwValue);
+		waitForElementVisible(driver, LoginPageUI.PW);
+		sendkeyToElement(driver, LoginPageUI.PW, pwValue);
 
 	}
 

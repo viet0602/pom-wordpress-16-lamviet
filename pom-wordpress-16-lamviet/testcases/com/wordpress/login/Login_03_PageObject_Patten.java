@@ -26,6 +26,7 @@ public class Login_03_PageObject_Patten extends AbstractPage {
 		System.setProperty("webdriver.chrome.driver", rootFolderPath + "\\browerDriver\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get("https://automationfc.wordpress.com/wp-admin");
 		loginPage = new LoginPageObject(driver);
 		loginUrl = loginPage.getLoginPageUrl();
