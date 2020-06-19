@@ -1,7 +1,4 @@
 package pageObjects.bankGuru;
-
-import java.util.Random;
-
 import org.openqa.selenium.WebDriver;
 
 import common.AbstractPage;
@@ -40,10 +37,4 @@ public class LoginPageObject extends AbstractPage {
 		sendkeyToElement(driver, LoginPageUI.PW, pwValue);
 
 	}
-
-	public int randomNumber() {
-		Random ran = new Random();
-		return ran.nextInt(999999);
-	}
-
 }

@@ -2,7 +2,7 @@
 <suite name="Word Press" parallel="false">
   <test name="Run on Chrome">
     <classes>
-      <class name="com.wordpress.login.Login_03_PageObject_Patten"/>
+      <class name="com.wordpress.login.Login_04_PageFactory"/>
     </classes>
   </test> 
 </suite> 

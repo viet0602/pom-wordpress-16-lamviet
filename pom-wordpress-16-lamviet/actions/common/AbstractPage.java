@@ -110,7 +110,6 @@ public abstract class AbstractPage {
 
 	public void clickToElement(WebDriver driver, String locator) {
 		findElementByXpath(driver, locator).click();
-		;
 	}
 
 	public void sendkeyToElement(WebDriver driver, String locator, String value) {
@@ -274,6 +273,5 @@ public abstract class AbstractPage {
 	private WebDriverWait explicitWait;
 	private WebElement element;
 	private List<WebElement> elements;
-	private long shortTimeout = 5;
 	private long longTimeout = 30;
 }
