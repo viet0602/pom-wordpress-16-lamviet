@@ -10,6 +10,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import com.wordpress.testdata.PageGeneratorManager;
+
 import common.AbstractPage;
 import pageObjects.WordPress.DashBoardPageObject;
 import pageObjects.WordPress.LoginPageObject;
@@ -28,7 +30,7 @@ public class Login_03_PageObject_Patten extends AbstractPage {
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("https://automationfc.wordpress.com/wp-admin");
-		loginPage = new LoginPageObject(driver);
+		loginPage = PageGeneratorManager.getLoginPage(driver);
 		loginUrl = loginPage.getLoginPageUrl();
 	}
 

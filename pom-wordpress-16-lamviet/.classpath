@@ -7,5 +7,14 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="libraries/selenium-server-standalone-2.53.1.jar" sourcepath="libraries/selenium-server-standalone-2.53.1.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/commons-io-2.6.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/commons-lang3-3.10.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/gson-2.8.6.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/httpclient5-5.0.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/httpcore5-5.0.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/jarchivelib-1.0.0.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/jsoup-1.13.1.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/slf4j-api-1.7.30.jar"/>
+	<classpathentry kind="lib" path="libDriverManager/webdrivermanager-4.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
