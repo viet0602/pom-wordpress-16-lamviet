@@ -1,0 +1,2 @@
+[0622/001315.083:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0622/002401.295:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
