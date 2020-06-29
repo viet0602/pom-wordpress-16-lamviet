@@ -13,6 +13,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.wordpress.testdata.PageGeneratorManager;
+
+import pageObjects.WordPress.CommentsPageObject;
+import pageObjects.WordPress.FeedbackPageObject;
+import pageObjects.WordPress.LinksPageObject;
+import pageObjects.WordPress.MediaPageObject;
+import pageObjects.WordPress.PagesPageObject;
+import pageObjects.WordPress.PostsPageObject;
+import pageObjects.WordPress.ProfilePageObject;
+import pageObjects.WordPress.SettingsPageObject;
+import pageObjects.WordPress.ToolsPageObject;
+
 public abstract class AbstractPage {
 	public void openUrl(WebDriver driver, String urlValue) {
 		driver.get(urlValue);
@@ -267,6 +279,55 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(byXpath(locator)));
 	}
+	
+	//Common functions - Open page
+	
+	public PagesPageObject clickToPagesMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.PAGES_LINK);
+		clickToElement(driver, AbstractPageUI.PAGES_LINK);
+		return PageGeneratorManager.getPagesPage(driver);
+	}
+	public CommentsPageObject clickToCommentsMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.COMMENTS_LINK);
+		clickToElement(driver, AbstractPageUI.COMMENTS_LINK);
+		return PageGeneratorManager.getCommentsPage(driver);
+	}
+	public FeedbackPageObject clickToFeedBackMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.FEEDBACK_LINK);
+		clickToElement(driver, AbstractPageUI.FEEDBACK_LINK);
+		return PageGeneratorManager.getFeedbackPage(driver);
+	}
+	public LinksPageObject clickToLinksMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.LINKS_LINK);
+		clickToElement(driver, AbstractPageUI.LINKS_LINK);
+		return PageGeneratorManager.getLinksPage(driver);
+	}
+	public MediaPageObject clickToMediaMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.MEDIA_LINK);
+		clickToElement(driver, AbstractPageUI.MEDIA_LINK);
+		return PageGeneratorManager.getMediaPage(driver);
+	}
+	public PostsPageObject clickToPostMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.POSTS_LINK);
+		clickToElement(driver, AbstractPageUI.POSTS_LINK);
+		return PageGeneratorManager.getPostsPage(driver);
+	}
+	public ProfilePageObject clickToProfileMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.PROFILE_LINK);
+		clickToElement(driver, AbstractPageUI.PROFILE_LINK);
+		return PageGeneratorManager.getProfilePage(driver);
+	}
+	public SettingsPageObject clickToSettingsMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.SETTINGS_LINK);
+		clickToElement(driver, AbstractPageUI.SETTINGS_LINK);
+		return PageGeneratorManager.getSettingsPage(driver);
+	}
+	public ToolsPageObject clickToToolsMenu(WebDriver driver) {
+		waitForElementClickable(driver, AbstractPageUI.TOOLS_LINK);
+		clickToElement(driver, AbstractPageUI.TOOLS_LINK);
+		return PageGeneratorManager.getToolsPage(driver);
+	}
+	
 	private Select select;
 	private Actions action;
 	private JavascriptExecutor jsExecutor;
