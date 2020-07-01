@@ -3,7 +3,7 @@
   <test name="Run on Chrome">
   <parameter name = "browser" value = "chrome"/>
     <classes>
-      <class name="com.wordpress.login.Login_07_WebDriver_LifeCycle"/>
+      <class name="com.wordpress.login.Login_08_Dynamic_Locator"/>
     </classes>
   </test> 
 <!--  <test name="Run on Firefox">

@@ -1,4 +1,4 @@
-package common;
+package pageUI.WordPress;
 
 public class AbstractPageUI {
 	public static final String POSTS_LINK= "//div[@class='wp-menu-name'and text()='Posts']";
@@ -10,4 +10,6 @@ public class AbstractPageUI {
 	public static final String PROFILE_LINK = "//div[@class='wp-menu-name'and text()='Profile']";
 	public static final String TOOLS_LINK = "//div[@class='wp-menu-name'and text()='Tools']";
 	public static final String SETTINGS_LINK = "//div[@class='wp-menu-name'and text()='Settings']";	
+	//Dynamic locator
+	public static final String DYNAMIC_PAGE_LINK = "//div[@class='wp-menu-name'and text()='%s']";	
 }
