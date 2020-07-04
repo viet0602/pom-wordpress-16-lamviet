@@ -117,7 +117,7 @@ public abstract class AbstractPage {
 		return driver.findElement(byXpath(locator));
 	}
 
-	public List<WebElement> findElemetntsByXpath(WebDriver driver, String locator) {
+	public List<WebElement> findElementsByXpath(WebDriver driver, String locator) {
 		return driver.findElements(byXpath(locator));
 	}
 
@@ -179,7 +179,7 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, 30);
 		explicitWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(byXpath(allItemXpath)));
 		// Lấy hết tất cả các item gán vào 1 cái list <WebElement> (findElements>
-		elements = findElemetntsByXpath(driver, allItemXpath);
+		elements = findElementsByXpath(driver, allItemXpath);
 		// Dùng vòng lặp duyệt qua các item
 		for (WebElement childElement : elements) {
 			if (childElement.getText().equals(expectedValueItem)) {
@@ -197,7 +197,13 @@ public abstract class AbstractPage {
 	}
 
 	public int countElementNumber(WebDriver driver, String locator) {
-		elements = findElemetntsByXpath(driver, locator);
+		elements = findElementsByXpath(driver, locator);
+		return elements.size();
+	}
+
+	// Dynamic locator
+	public int countElementNumber(WebDriver driver, String locator, String... values) {
+		elements = findElementsByXpath(driver, castToObject(locator, values));
 		return elements.size();
 	}
 
@@ -260,6 +266,12 @@ public abstract class AbstractPage {
 		action.sendKeys(findElementByXpath(driver, locator), key).perform();
 	}
 
+	// Dynamic locator
+	public void sendKeyboardToElement(WebDriver driver, String locator, Keys key, String... values) {
+		action = new Actions(driver);
+		action.sendKeys(findElementByXpath(driver, castToObject(locator, values)), key).perform();
+	}
+
 	public Object executeForBrowser(WebDriver driver, String expectedText) {
 		jsExecutor = (JavascriptExecutor) driver;
 		String textActual = (String) jsExecutor.executeScript("return document.documentElement.innerText.match(" + expectedText + "')[0]");
@@ -289,7 +301,11 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, locator));
 	}
-
+	//Dynamic locator
+	public void scrollToElementByJS(WebDriver driver, String locator, String...values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, castToObject(locator, values)));
+	}
 	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
@@ -409,7 +425,8 @@ public abstract class AbstractPage {
 			return PageGeneratorManager.getDashBoardPage(driver);
 		}
 	}
-	//Dynamic locator: Apply for much page
+
+	// Dynamic locator: Apply for much page
 	public void clickToDynamicMuchPageMenu(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
@@ -421,5 +438,5 @@ public abstract class AbstractPage {
 	private WebDriverWait explicitWait;
 	private WebElement element;
 	private List<WebElement> elements;
-	private long longTimeout = 30;
+	private long longTimeout = 50;
 }
