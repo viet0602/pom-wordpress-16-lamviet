@@ -24,14 +24,14 @@ public class DataTable_Jquery extends AbstractTest {
 	}
 
 	// Open page in page https://www.jqueryscript.net/demo/CRUD-Data-Grid-Plugin-jQuery-Quickgrid/
-
+	@Test
 	public void TC_01_Input_To_Column_By_Name() {
 		dataTablePage.inputToColumnByName("Country", "Angola");
 		dataTablePage.refresh(driver);
 		Assert.assertTrue(dataTablePage.isOnlyOneRowDisplayed("Angola"));
 	}
 
-
+	@Test
 	public void TC_02_Edit_Delete_Icon_By_Country_Name() {
 		dataTablePage.refresh(driver);
 
@@ -47,7 +47,7 @@ public class DataTable_Jquery extends AbstractTest {
 		Assert.assertTrue(dataTablePage.isPageActiveByIndex("11"));
 	}
 	@AfterClass
-	public void Quit() {
+	public void afterClass() {
 		driver.quit();
 	}
 }

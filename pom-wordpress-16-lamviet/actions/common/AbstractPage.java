@@ -438,5 +438,5 @@ public abstract class AbstractPage {
 	private WebDriverWait explicitWait;
 	private WebElement element;
 	private List<WebElement> elements;
-	private long longTimeout = 50;
+	private long longTimeout = 30;
 }
