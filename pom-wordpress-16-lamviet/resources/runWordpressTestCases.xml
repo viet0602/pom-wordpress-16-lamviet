@@ -3,7 +3,7 @@
   <test name="Run on Chrome">
   <parameter name = "browser" value = "chrome"/>
     <classes>
-      <class name="com.wordpress.login.Login_08_Dynamic_Locator"/>
+      <class name="com.wordpress.media.Media_09_UploadImages"/>
     </classes>
   </test> 
 <!--  <test name="Run on Firefox">

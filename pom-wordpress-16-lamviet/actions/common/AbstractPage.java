@@ -1,5 +1,6 @@
 package common;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -310,6 +311,53 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
 	}
+	public void uploadMultiple(WebDriver driver, String...fileNames) {
+		String filePath=System.getProperty("user.dir")+"\\uploadFiles\\";
+		String fullFileName= "";
+		for(String file:fileNames) {
+			fullFileName = fullFileName + filePath + file + "\n";
+		}
+		fullFileName=fullFileName.trim();
+		sendkeyToElement(driver, AbstractPageUI.UPLOAD_FILE_TYPE, fullFileName);
+	}
+	public boolean areFileUploadDisplay(WebDriver driver, String...fileNames) {
+		boolean status = false;
+		int number = fileNames.length;
+		
+		waitForElementsInvisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
+		sleepInSecond(10);
+		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMAGE);
+		System.out.println(elements);
+		
+		List<String> imageValues = new ArrayList<String>();
+		//Lấy source value của nó = chứa tên hình
+		int i=0;
+		for(WebElement image : elements) {
+			imageValues.add(image.getAttribute("src"));
+			i++;
+			if(i==number) {
+				break;
+			}
+		}
+		//verify File name matching
+		for(String fileName : fileNames) {
+			String[] files = fileName.split("\\.");
+			fileName=files[0].toLowerCase();
+			for(i=0; i<imageValues.size(); i++) {
+				if(!imageValues.get(i).contains(fileName)) {
+					status = false;
+					if(i==imageValues.size()-1) {
+						return status;
+					}
+					else {
+						status=true;
+						break;
+					}
+				}
+			}
+		}
+		return status;
+	}
 
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
@@ -323,6 +371,10 @@ public abstract class AbstractPage {
 	public void waitForElementVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
+	}
+	public void waitForElementsVisible(WebDriver driver, String locator) {
+		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(locator)));
 	}
 
 	// Dynamic Locator
@@ -340,6 +392,10 @@ public abstract class AbstractPage {
 	public void waitForElementInvisible(WebDriver driver, String locator, String... values) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(castToObject(locator, values))));
+	}
+	public void waitForElementsInvisible(WebDriver driver, String locator, String... values) {
+		explicitWait = new WebDriverWait(driver, longTimeout);
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
 	}
 
 	public void waitForElementClickable(WebDriver driver, String locator) {
