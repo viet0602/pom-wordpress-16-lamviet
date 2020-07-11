@@ -1,5 +1,10 @@
 package com.wordpress.media;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.wordpress.testdata.PageGeneratorManager;
@@ -12,16 +17,11 @@ import pageObjects.WordPress.MediaPageObject;
 import pageObjects.WordPress.PagesPageObject;
 import pageObjects.WordPress.PostsPageObject;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-
 public class Media_09_UploadImages extends AbstractTest {
 	WebDriver driver;
 	String pic1 = "DOG1.jpg";
 	String pic2 = "DOG2.jpg";
-	String pic4 = "DOG3.jpg";
+	String pic3 = "DOG3.jpg";
 
 	@Parameters("browser")
 
@@ -45,14 +45,17 @@ public class Media_09_UploadImages extends AbstractTest {
 		mediaPage = (MediaPageObject) dashboardPage.clickToDynamicPageMenu(driver, "Media");
 
 		mediaPage.clickToAddNewbutton();
-		mediaPage.uploadMultiple(driver, pic1, pic2, pic4);
-		// mediaPage.sleepInSecond(50);
-		Assert.assertTrue(mediaPage.areFileUploadDisplay(driver, pic1, pic2, pic4));
+		mediaPage.uploadMultiple(driver, pic1, pic2, pic3);
+
+		Assert.assertTrue(mediaPage.areFileUploadDisplay(driver, pic1, pic2, pic3));
 	}
 
-	/*
-	 * @AfterClass public void afterClass() { driver.close(); }
-	 */
+	
+	  @AfterClass 
+	  public void afterClass() {
+		  driver.close(); 
+		  }
+	 
 
 	String loginUrl;
 	LoginPageObject loginPage;

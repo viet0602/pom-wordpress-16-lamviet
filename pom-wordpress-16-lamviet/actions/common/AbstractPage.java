@@ -325,9 +325,8 @@ public abstract class AbstractPage {
 		int number = fileNames.length;
 		
 		waitForElementsInvisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
-		sleepInSecond(10);
+		sleepInSecond(5);
 		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMAGE);
-		System.out.println(elements);
 		
 		List<String> imageValues = new ArrayList<String>();
 		//Lấy source value của nó = chứa tên hình
@@ -393,8 +392,9 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(castToObject(locator, values))));
 	}
-	public void waitForElementsInvisible(WebDriver driver, String locator, String... values) {
+	public void waitForElementsInvisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
+		elements = findElementsByXpath(driver, locator);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(elements));
 	}
 
