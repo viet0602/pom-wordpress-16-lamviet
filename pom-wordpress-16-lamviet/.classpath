@@ -16,5 +16,29 @@
 	<classpathentry kind="lib" path="libDriverManager/jsoup-1.13.1.jar"/>
 	<classpathentry kind="lib" path="libDriverManager/slf4j-api-1.7.30.jar"/>
 	<classpathentry kind="lib" path="libDriverManager/webdrivermanager-4.0.0.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/bson-3.0.4.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/bson-3.3.0.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/extentreports-2.41.2.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/extentreports-3.1.5.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/extentreports-4.0.9.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/freemarker-2.3.23.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/httpmime-4.5.2.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/jcommander-1.48.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/jsoup-1.9.2.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/mongodb-driver-3.0.4.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/mongodb-driver-3.3.0.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/mongodb-driver-core-3.0.4.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/mongodb-driver-core-3.3.0.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/sqlite-jdbc-3.8.11.1.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/testng-6.9.10.jar"/>
+	<classpathentry kind="lib" path="assertVerifyLib/testng-6.9.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Word Press" parallel="false" >
+<listeners>
+	<listener class-name="common.MethodListener"/>
+</listeners>
   <test name="Run on Chrome">
   <parameter name = "browser" value = "chrome"/>
     <classes>
-      <class name="com.wordpress.media.Media_09_UploadImages"/>
+      <class name="com.wordpress.login.Login_10_Assert_Verify"/>
     </classes>
   </test> 
 <!--  <test name="Run on Firefox">
