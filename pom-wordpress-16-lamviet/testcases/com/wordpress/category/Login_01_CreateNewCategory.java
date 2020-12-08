@@ -91,7 +91,7 @@ public class Login_01_CreateNewCategory extends AbstractTest {
 
 	}
 
-	@Test
+//	@Test
 //	public void Post_02_Edit_Post_At_Admin_Page() {
 //		// Navigate to Admin Site
 //		dashboardPage = searchResultUserPage.openAdminLoggedPage(driver);
