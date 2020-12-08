@@ -85,7 +85,6 @@ public class Login_01_CreateNewCategory extends AbstractTest {
 		verifyTrue(postDetailUserPage.isAuthorDisplayed(driver, author));
 
 		// Search Post at User Page
-//testing
 		searchResultUserPage = postDetailUserPage.inputToSearchTextBoxAtUserPage(driver, "title");
 		// verifyTrue(searchResultUserPage.isNewPostDisplayedOnLatestPost("category", "title", "date created"));
 		// verifyTrue(searchResultUserPage.isPostImageDisplayedTitleName("title", "NewPost.hpg"));
