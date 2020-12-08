@@ -3,7 +3,7 @@ package browserFactory;
 public class BrowserDriverFactory {
 	public static DriverManager getBrowserDriver(String browserName) {
 		DriverManager driverManager;
-		switch(browserName) {
+		switch (browserName) {
 		case "chrome":
 			driverManager = new ChromeDriverManager();
 		case "firefox":
@@ -12,7 +12,7 @@ public class BrowserDriverFactory {
 			driverManager = new ChromeHeadLessDriverManager();
 			break;
 		}
-		return driverManager;
+		 return driverManager;
 	}
 
 }

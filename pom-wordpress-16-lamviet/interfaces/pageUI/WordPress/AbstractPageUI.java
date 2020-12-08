@@ -24,5 +24,6 @@ public class AbstractPageUI {
 	public static final String DETAIL_PAGE_CREATED_DATE = "//span[@class='post-meta-date']//a[(text()='%s' )]";
 	public static final String DETAIL_PAGE_AUTHOR = "//span[@class='post-meta-author']/a[text()='%s']";
 	public static final String DETAIL_PAGE_IMAGE = "//figure[@class='post-image clear-fix']//img[contains(@src,'%s')]";
+	
 
 }

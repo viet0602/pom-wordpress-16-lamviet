@@ -25,13 +25,12 @@ public class PostsAdminPageObject extends AbstractPage {
 	public void inputToSearchTextBox(String titlePost) {
 		waitForElementsVisible(driver, PostAdminPageUI.SEARCH_POSTS_TEXTBOX);
 		sendkeyToElement(driver, PostAdminPageUI.SEARCH_POSTS_TEXTBOX, titlePost);
-		
+
 	}
 
 	public void clickToSearchPostsButton() {
 		waitForElementClickable(driver, PostAdminPageUI.SEARCH_POSTS_BTN);
 		clickToElement(driver, PostAdminPageUI.SEARCH_POSTS_BTN);
 	}
-
 
 }

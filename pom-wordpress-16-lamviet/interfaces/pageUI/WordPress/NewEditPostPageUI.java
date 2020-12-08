@@ -14,5 +14,6 @@ public class NewEditPostPageUI {
 	public static final String THUMBNAIL_IMG = "//a[@id='set-post-thumbnail']//img[contains(@src,'%s')]";
 	public static final String PUBLISH_BTN = "//input[@id='publish']";
 	public static final String POST_PUBLISHED_TEXT = "//p[contains(text(),'Post published.')]";
+	
 
 }

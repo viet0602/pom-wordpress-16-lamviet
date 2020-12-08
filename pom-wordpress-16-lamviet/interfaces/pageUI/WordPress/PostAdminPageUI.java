@@ -6,4 +6,5 @@ public class PostAdminPageUI {
 	public static final String CLASSIC_EDITOR_TXT = "//span[@id='split-page-title-action']//a[text()='Classic Editor']";
 	public static final String SEARCH_POSTS_TEXTBOX = "//input[@id='post-search-input']";
 	public static final String SEARCH_POSTS_BTN = "//input[@id='search-submit']";
+	
 }

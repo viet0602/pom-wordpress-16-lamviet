@@ -20,42 +20,42 @@ import pageObjects.admin.WordPress.PostsAdminPageObject;
 public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	WebDriver driver;
 	DriverManager driverManager;
-	
+
 	@Parameters("browser")
 
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
-		
+
 		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 	}
 
-	
 	@Test
 	public void TC_01_LoginToSystem() {
 		loginPage.inputToEmailTextBox("automationeditor");
 		loginPage.clickToContinueOrLoginButton();
-		loginPage.inputToPwTextBox("automationfc");		
-		dashboardPage =loginPage.clickToContinueOrLoginButton();
+		loginPage.inputToPwTextBox("automationfc");
+		dashboardPage = loginPage.clickToContinueOrLoginButton();
 		Assert.assertTrue(dashboardPage.isHeaderTextDisplay());
 
 	}
+
 	@Test
 	public void TC_02_NavigateToPage() {
-		
-		//Dashboard > Post
+
+		// Dashboard > Post
 		postPage = dashboardPage.clickToPostMenu(driver);
-		//Post > Media
+		// Post > Media
 		mediaPage = postPage.clickToMediaMenu(driver);
-		
-		//Media > Links
+
+		// Media > Links
 		linksPage = mediaPage.clickToLinksMenu(driver);
-		
-		//Links >Pages
+
+		// Links >Pages
 		pagesPage = linksPage.clickToPagesMenu(driver);
-		//Pages > Post
+		// Pages > Post
 		postPage = pagesPage.clickToPostMenu(driver);
-		//Post > Links
+		// Post > Links
 		linksPage = postPage.clickToLinksMenu(driver);
 	}
 
@@ -63,6 +63,7 @@ public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	public void afterClass() {
 		driver.close();
 	}
+
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;

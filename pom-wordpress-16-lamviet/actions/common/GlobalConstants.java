@@ -8,5 +8,4 @@ public class GlobalConstants {
 	public static String DOWNLOAD_FOLDER = ROOT_FOLDER + "\\downloadFiles\\";
 	public static String UP_FOLDER = ROOT_FOLDER + "\\uploadFiles\\";
 	public static String BROWSER_LOG_FOLDER = ROOT_FOLDER + "\\browserLog";
-
 }

@@ -7,8 +7,9 @@ import pageUI.bankGuru.HomePageUI;
 
 public class HomePageObject extends AbstractPage {
 	WebDriver driver;
+
 	public HomePageObject(WebDriver driver) {
-		this.driver= driver;
+		this.driver = driver;
 	}
 
 	public boolean isWelcomeMessageDisplay() {

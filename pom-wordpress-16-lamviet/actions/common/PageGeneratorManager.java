@@ -77,4 +77,5 @@ public class PageGeneratorManager {
 	static SearchResultPageObject getSearchResultUserPage(WebDriver driver) {
 		return new SearchResultPageObject(driver);
 	}
+	
 }

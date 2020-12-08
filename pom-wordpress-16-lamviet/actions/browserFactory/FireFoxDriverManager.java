@@ -10,7 +10,6 @@ public class FireFoxDriverManager extends DriverManager {
 	void createDriver() {
 		WebDriverManager.firefoxdriver().setup();
 		driver = new FirefoxDriver();
-		
 	}
 
 }

@@ -5,16 +5,17 @@ import org.openqa.selenium.WebDriver;
 import common.AbstractPage;
 import pageUI.bankGuru.RegisterPageUI;
 
-public class RegisterPageObject extends AbstractPage{
+public class RegisterPageObject extends AbstractPage {
 
 	WebDriver driver;
+
 	public RegisterPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
 
 	public void clickToSubmitButton() {
 		waitForElementClickable(driver, RegisterPageUI.SUBMIT_BTN);
-		clickToElement(driver,RegisterPageUI.SUBMIT_BTN);
+		clickToElement(driver, RegisterPageUI.SUBMIT_BTN);
 	}
 
 	public void inputToEmailTextBox(String str) {

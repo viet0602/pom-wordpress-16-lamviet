@@ -15,17 +15,17 @@ import common.PageGeneratorManager;
 import pageObjects.admin.WordPress.DashBoardPageObject;
 import pageObjects.admin.WordPress.LoginPageObject;
 
-public class Login_06_BrowserFactoryPattern extends AbstractTest{
+public class Login_06_BrowserFactoryPattern extends AbstractTest {
 	WebDriver driver;
 	DriverManager driverManager;
-	
+
 	@Parameters("browser")
 
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driverManager = BrowserDriverFactory.getBrowserDriver(browserName);
 		driver = driverManager.getDriver();
-		
+
 		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 		loginUrl = loginPage.getLoginPageUrl();
 	}
@@ -95,6 +95,7 @@ public class Login_06_BrowserFactoryPattern extends AbstractTest{
 	public void afterClass() {
 		driver.close();
 	}
+
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;

@@ -6,4 +6,5 @@ public class LoginPageUI {
 	public static final String PW = "//input[@name='password']";
 	public static final String LOGIN_BTN = "//input[@name='btnLogin']";
 
+	
 }

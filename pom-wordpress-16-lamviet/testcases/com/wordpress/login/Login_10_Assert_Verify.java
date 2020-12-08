@@ -1,7 +1,6 @@
 package com.wordpress.login;
 
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -15,17 +14,17 @@ import common.PageGeneratorManager;
 import pageObjects.admin.WordPress.DashBoardPageObject;
 import pageObjects.admin.WordPress.LoginPageObject;
 
-public class Login_10_Assert_Verify extends AbstractTest{
+public class Login_10_Assert_Verify extends AbstractTest {
 	WebDriver driver;
 	DriverManager driverManager;
-	
+
 	@Parameters("browser")
 
 	@BeforeClass
 	public void beforeClass(String browserName) {
 		driverManager = BrowserDriverFactory.getBrowserDriver(browserName);
 		driver = driverManager.getDriver();
-		
+
 		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 		loginUrl = loginPage.getLoginPageUrl();
 	}
@@ -95,6 +94,7 @@ public class Login_10_Assert_Verify extends AbstractTest{
 	public void afterClass() {
 		driver.close();
 	}
+
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;

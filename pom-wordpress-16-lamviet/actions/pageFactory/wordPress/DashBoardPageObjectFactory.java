@@ -8,10 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 
 public class DashBoardPageObjectFactory extends AbstractPageFactory {
 	private WebDriver driver;
-	//public static final String HEADER_TEXT="//h1[contains(text(),'Dashboard')]";
+	// public static final String HEADER_TEXT="//h1[contains(text(),'Dashboard')]";
 	@FindBy(how = How.XPATH, using = "//h1[contains(text(),'Dashboard')]")
 	private WebElement headerText;
-
 
 	public DashBoardPageObjectFactory(WebDriver mappingDriver) {
 		driver = mappingDriver;
@@ -27,4 +26,5 @@ public class DashBoardPageObjectFactory extends AbstractPageFactory {
 		// TODO Auto-generated method stub
 		return element.isDisplayed();
 	}
+	
 }

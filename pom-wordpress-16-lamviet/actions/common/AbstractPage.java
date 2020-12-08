@@ -376,7 +376,8 @@ public abstract class AbstractPage {
 		}
 		return false;
 	}
-	public boolean isImageLoaded(WebDriver driver, String locator, String...values ) {
+
+	public boolean isImageLoaded(WebDriver driver, String locator, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
 		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof argumentes[0]" + ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0", findElementByXpath(driver, (castToObject(locator, values))));
 		if (status) {
@@ -527,47 +528,54 @@ public abstract class AbstractPage {
 
 	public boolean isValueDisplayAtColumnName(WebDriver driver, String columnName, String value) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, value);
-		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME,columnName, value);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, value);
 	}
 
 	public boolean isNewPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String titlePost, String dateCreated) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
 		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
 	}
+
 	public boolean isPostImageDisplayedTitleName(WebDriver driver, String titlePost, String imageName) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName);
 		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName) && isImageLoaded(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE);
 	}
 
-	public PostDetailPageObject clickToDetailPostByTitleName(WebDriver driver,String titleName) {
+	public PostDetailPageObject clickToDetailPostByTitleName(WebDriver driver, String titleName) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
 		return PageGeneratorManager.getPostDetailUserPage(driver);
 	}
+
 	public boolean isCategoryNameDisplayed(WebDriver driver, String categoryName) {
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
 		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
 	}
+
 	public boolean isTitleNameDisplayed(WebDriver driver, String title) {
 
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
 		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
 	}
+
 	public boolean isContentDisplayed(WebDriver driver, String content) {
 
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
 		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
 	}
+
 	public boolean isDateCreatedDisplayed(WebDriver driver, String today) {
 
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
 		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
 	}
+
 	public boolean isPostImageDisplayed(WebDriver driver, String imageName) {
 
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_IMAGE, imageName);
 		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, imageName);
 	}
+
 	public boolean isAuthorDisplayed(WebDriver driver, String author) {
 
 		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_AUTHOR, author);

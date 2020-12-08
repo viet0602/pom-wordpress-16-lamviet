@@ -10,5 +10,4 @@ public class LinksPageObject extends AbstractPage{
 	public LinksPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
-
 }

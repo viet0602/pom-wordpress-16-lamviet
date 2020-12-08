@@ -31,6 +31,7 @@ public abstract class AbstractPageFactory {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(element));
 	}
+
 	private WebDriverWait explicitWait;
 	private long longTimeout = 30;
 }

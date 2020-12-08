@@ -160,7 +160,7 @@ public abstract class AbstractTest {
 		DateTime now = new DateTime();
 		return String.valueOf(now.getYear());
 	}
-
+//
 	protected String getWordPressToday() {
 		return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
 	}

@@ -36,7 +36,7 @@ public class DataTable_Jquery extends AbstractTest {
 		dataTablePage.refresh(driver);
 
 		dataTablePage.clickToDynamicIconByCountryName("remove", "Aruba");
-		dataTablePage.clickToDynamicIconByCountryName( "edit","Angola");
+		dataTablePage.clickToDynamicIconByCountryName("edit", "Angola");
 
 	}
 
@@ -46,6 +46,7 @@ public class DataTable_Jquery extends AbstractTest {
 		dataTablePage.navigateToDynamicPageByIndex("11");
 		Assert.assertTrue(dataTablePage.isPageActiveByIndex("11"));
 	}
+
 	@AfterClass
 	public void afterClass() {
 		driver.quit();

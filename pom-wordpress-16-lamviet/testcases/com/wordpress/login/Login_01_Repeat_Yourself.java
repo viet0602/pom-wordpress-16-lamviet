@@ -92,7 +92,6 @@ public class Login_01_Repeat_Yourself {
 	public int randomNumber() {
 		Random rand = new Random();
 		return rand.nextInt(999999);
-
 	}
 
 	@AfterClass

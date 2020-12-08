@@ -65,15 +65,14 @@ public class NewEditPostPageObject extends AbstractPage {
 	public boolean isThumbnailImageDisplay(String imageName) {
 		String[] files = imageName.split("\\.");
 		waitForElementVisible(driver, NewEditPostPageUI.THUMBNAIL_IMG, files[0]);
-		return isElementDisplayed(driver, NewEditPostPageUI.THUMBNAIL_IMG,  files[0]);
+		return isElementDisplayed(driver, NewEditPostPageUI.THUMBNAIL_IMG, files[0]);
 	}
 
 	public void clickToPublishButton() {
-	//	scrollToElementByJS(driver, NewEditPostPageUI.PUBLISH_BTN);
+		// scrollToElementByJS(driver, NewEditPostPageUI.PUBLISH_BTN);
 		waitForElementsVisible(driver, NewEditPostPageUI.PUBLISH_BTN);
 		clickToElementByJS(driver, NewEditPostPageUI.PUBLISH_BTN);
 	}
-
 
 	public boolean isNewPostSuccessMessageDisplay() {
 		waitForElementVisible(driver, NewEditPostPageUI.POST_PUBLISHED_TEXT);

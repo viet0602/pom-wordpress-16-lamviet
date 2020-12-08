@@ -16,5 +16,4 @@ public class DashBoardPageObject extends AbstractPage {
 		waitForElementVisible(driver, DashBoardPageUI.HEADER_TEXT);
 		return isElementDisplayed(driver, DashBoardPageUI.HEADER_TEXT);
 	}
-
 }

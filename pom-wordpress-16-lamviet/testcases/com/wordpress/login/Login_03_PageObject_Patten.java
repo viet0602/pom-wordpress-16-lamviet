@@ -50,9 +50,9 @@ public class Login_03_PageObject_Patten extends AbstractPage {
 	}
 
 	@Test
-	public void Validate_03_EmailNotExits() {	
+	public void Validate_03_EmailNotExits() {
 		loginPage.openLoginPage(loginUrl);
-		loginPage.inputToEmailTextBox( "lamviet1" + randomNumber() + "@gmail.com");
+		loginPage.inputToEmailTextBox("lamviet1" + randomNumber() + "@gmail.com");
 		loginPage.clickToContinueOrLoginButton();
 		Assert.assertEquals(loginPage.getEmailOrPwErrorMsg(), "User does not exist. Would you like to create a new account?");
 	}
@@ -70,7 +70,7 @@ public class Login_03_PageObject_Patten extends AbstractPage {
 	@Test
 	public void Validate_05_PwLessThan6chars() {
 		loginPage.openLoginPage(loginUrl);
-		loginPage.inputToEmailTextBox( "automationeditor");
+		loginPage.inputToEmailTextBox("automationeditor");
 		loginPage.clickToContinueOrLoginButton();
 		loginPage.inputToPwTextBox("1234567");
 		loginPage.clickToContinueOrLoginButton();
@@ -78,9 +78,9 @@ public class Login_03_PageObject_Patten extends AbstractPage {
 	}
 
 	@Test
-	public void Validate_06_ValidPw() {		
+	public void Validate_06_ValidPw() {
 		loginPage.openLoginPage(loginUrl);
-		loginPage.inputToEmailTextBox( "automationeditor");
+		loginPage.inputToEmailTextBox("automationeditor");
 		loginPage.clickToContinueOrLoginButton();
 		loginPage.inputToPwTextBox("automationfc");
 		loginPage.clickToContinueOrLoginButton();

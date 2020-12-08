@@ -7,6 +7,7 @@
 			class-name="org.uncommons.reportng.JUnitXMLReporter" />
 	</listeners>
 	<test name="Run on Chrome">
+	
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.wordpress.category.Login_01_CreateNewCategory" />

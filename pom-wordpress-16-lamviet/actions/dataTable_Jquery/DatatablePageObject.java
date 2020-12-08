@@ -33,21 +33,21 @@ public class DatatablePageObject extends AbstractPage {
 	}
 
 	public void navigateToDynamicPageByIndex(String pageNumber) {
-	//	scrollToElementByJS(driver, DataTablePageUI.DYNAMIC_PAGE_SELECTED_BY_INDEX, pageNumber);
+		// scrollToElementByJS(driver, DataTablePageUI.DYNAMIC_PAGE_SELECTED_BY_INDEX, pageNumber);
 		waitForElementVisible(driver, DataTablePageUI.DYNAMIC_PAGE_SELECTED_BY_INDEX, pageNumber);
 		clickToElement(driver, DataTablePageUI.DYNAMIC_PAGE_SELECTED_BY_INDEX, pageNumber);
 
 	}
 
 	public boolean isPageActiveByIndex(String pageNumber) {
-		//scrollToElementByJS(driver, DataTablePageUI.DYNAMIC_PAGE_ACTIVED_BY_INDEX, pageNumber);
+		// scrollToElementByJS(driver, DataTablePageUI.DYNAMIC_PAGE_ACTIVED_BY_INDEX, pageNumber);
 		waitForElementVisible(driver, DataTablePageUI.DYNAMIC_PAGE_ACTIVED_BY_INDEX, pageNumber);
 		return isElementDisplayed(driver, DataTablePageUI.DYNAMIC_PAGE_ACTIVED_BY_INDEX, pageNumber);
 	}
-	
+
 	public void inputToDynamicTextBoxAtRowNumber(String columnName, String rowNumber, String inputValue) {
 		waitForElementInvisible(driver, DataTablePageUI.DYNAMIC_COLUMN_POSITION_INDEX, columnName);
-		int columnPosition = countElementNumber(driver, DataTablePageUI.DYNAMIC_COLUMN_POSITION_INDEX, columnName)+1;
+		int columnPosition = countElementNumber(driver, DataTablePageUI.DYNAMIC_COLUMN_POSITION_INDEX, columnName) + 1;
 		sendkeyToElement(driver, DataTablePageUI.DYNAMIC_TEXTBOX_BY_ROW_AND_COLUMN_INDEX, inputValue, String.valueOf(columnPosition));
 	}
 

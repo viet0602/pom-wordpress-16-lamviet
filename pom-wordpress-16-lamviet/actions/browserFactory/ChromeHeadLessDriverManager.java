@@ -14,7 +14,7 @@ public class ChromeHeadLessDriverManager extends DriverManager {
 		options.addArguments("headless");
 		options.addArguments("window-size=1920x1080");
 		driver = new ChromeDriver(options);
-		
+
 	}
 
 }

@@ -49,12 +49,10 @@ public class Media_09_UploadImages extends AbstractTest {
 		Assert.assertTrue(mediaPage.areFileUploadDisplay(driver, pic1, pic2, pic3));
 	}
 
-	
-	  @AfterClass 
-	  public void afterClass() {
-		  driver.close(); 
-		  }
-	 
+	@AfterClass
+	public void afterClass() {
+		driver.close();
+	}
 
 	String loginUrl;
 	LoginPageObject loginPage;

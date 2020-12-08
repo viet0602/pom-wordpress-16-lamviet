@@ -13,10 +13,9 @@ public class ChromeDriverManager extends DriverManager {
 		WebDriverManager.chromedriver().setup();
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		ChromeOptions options = new ChromeOptions();
-		//options.addArguments("--incognito");
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 		driver = new ChromeDriver(capabilities);
-		
+
 	}
 
 }
