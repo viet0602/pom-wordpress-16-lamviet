@@ -3,7 +3,6 @@ package common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -14,17 +13,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.wordpress.testdata.PageGeneratorManager;
-
-import pageObjects.WordPress.CommentsPageObject;
-import pageObjects.WordPress.FeedbackPageObject;
-import pageObjects.WordPress.LinksPageObject;
-import pageObjects.WordPress.MediaPageObject;
-import pageObjects.WordPress.PagesPageObject;
-import pageObjects.WordPress.PostsPageObject;
-import pageObjects.WordPress.ProfilePageObject;
-import pageObjects.WordPress.SettingsPageObject;
-import pageObjects.WordPress.ToolsPageObject;
+import pageObjects.admin.WordPress.CommentsPageObject;
+import pageObjects.admin.WordPress.DashBoardPageObject;
+import pageObjects.admin.WordPress.FeedbackPageObject;
+import pageObjects.admin.WordPress.LinksPageObject;
+import pageObjects.admin.WordPress.MediaPageObject;
+import pageObjects.admin.WordPress.PagesPageObject;
+import pageObjects.admin.WordPress.PostsAdminPageObject;
+import pageObjects.admin.WordPress.ProfilePageObject;
+import pageObjects.admin.WordPress.SettingsPageObject;
+import pageObjects.admin.WordPress.ToolsPageObject;
+import pageObjects.user.WordPress.HomeUserPageObject;
+import pageObjects.user.WordPress.PostDetailPageObject;
+import pageObjects.user.WordPress.SearchResultPageObject;
 import pageUI.WordPress.AbstractPageUI;
 
 public abstract class AbstractPage {
@@ -298,60 +299,69 @@ public abstract class AbstractPage {
 		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, locator));
 	}
 
+	// Dynamic locator
+	public void clickToElementByJS(WebDriver driver, String locator, String... values) {
+		jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].click();", findElementByXpath(driver, castToObject(locator, values)));
+	}
+
 	public void scrollToElementByJS(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, locator));
 	}
-	//Dynamic locator
-	public void scrollToElementByJS(WebDriver driver, String locator, String...values) {
+
+	// Dynamic locator
+	public void scrollToElementByJS(WebDriver driver, String locator, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, castToObject(locator, values)));
 	}
+
 	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove) {
 		jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
 	}
-	public void uploadMultiple(WebDriver driver, String...fileNames) {
-		String filePath=System.getProperty("user.dir")+"\\uploadFiles\\";
-		String fullFileName= "";
-		for(String file:fileNames) {
-			fullFileName = fullFileName + filePath + file + "\n";
+
+	public void uploadMultiple(WebDriver driver, String... fileNames) {
+		String fullFileName = "";
+		for (String file : fileNames) {
+			fullFileName = fullFileName + GlobalConstants.UP_FOLDER + file + "\n";
 		}
-		fullFileName=fullFileName.trim();
+		fullFileName = fullFileName.trim();
 		sendkeyToElement(driver, AbstractPageUI.UPLOAD_FILE_TYPE, fullFileName);
 	}
-	public boolean areFileUploadDisplay(WebDriver driver, String...fileNames) {
+
+	public boolean areFileUploadDisplay(WebDriver driver, String... fileNames) {
 		boolean status = false;
 		int number = fileNames.length;
-		
+
 		waitForElementsInvisible(driver, AbstractPageUI.MEDIA_PROGRESS_BAR_ICON);
 		sleepInSecond(5);
 		elements = findElementsByXpath(driver, AbstractPageUI.ALL_UPLOADED_IMAGE);
-		
+		// Tạo array list chứa các
 		List<String> imageValues = new ArrayList<String>();
-		//Lấy source value của nó = chứa tên hình
-		int i=0;
-		for(WebElement image : elements) {
+		// Lấy source value của nó = chứa tên hình
+		int i = 0;
+		for (WebElement image : elements) {
+			// System.out.print(image.getAttribute("src"));
 			imageValues.add(image.getAttribute("src"));
 			i++;
-			if(i==number) {
+			if (i == number) {
 				break;
 			}
 		}
-		//verify File name matching
-		for(String fileName : fileNames) {
+		// verify File name matching
+		for (String fileName : fileNames) {
 			String[] files = fileName.split("\\.");
-			fileName=files[0].toLowerCase();
-			for(i=0; i<imageValues.size(); i++) {
-				if(!imageValues.get(i).contains(fileName)) {
+			fileName = files[0].toLowerCase();
+			for (i = 0; i < imageValues.size(); i++) {
+				if (!imageValues.get(i).contains(fileName)) {
 					status = false;
-					if(i==imageValues.size()-1) {
+					if (i == imageValues.size() - 1) {
 						return status;
 					}
-					else {
-						status=true;
-						break;
-					}
+				} else {
+					status = true;
+					break;
 				}
 			}
 		}
@@ -366,11 +376,20 @@ public abstract class AbstractPage {
 		}
 		return false;
 	}
+	public boolean isImageLoaded(WebDriver driver, String locator, String...values ) {
+		jsExecutor = (JavascriptExecutor) driver;
+		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof argumentes[0]" + ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0", findElementByXpath(driver, (castToObject(locator, values))));
+		if (status) {
+			return true;
+		}
+		return false;
+	}
 
 	public void waitForElementVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(byXpath(locator)));
 	}
+
 	public void waitForElementsVisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(byXpath(locator)));
@@ -392,6 +411,7 @@ public abstract class AbstractPage {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(byXpath(castToObject(locator, values))));
 	}
+
 	public void waitForElementsInvisible(WebDriver driver, String locator) {
 		explicitWait = new WebDriverWait(driver, longTimeout);
 		elements = findElementsByXpath(driver, locator);
@@ -413,79 +433,145 @@ public abstract class AbstractPage {
 	public PagesPageObject clickToPagesMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.PAGES_LINK);
 		clickToElement(driver, AbstractPageUI.PAGES_LINK);
-		return PageGeneratorManager.getPagesPage(driver);
+		return PageGeneratorManager.getPagesAdminPage(driver);
 	}
 
 	public CommentsPageObject clickToCommentsMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.COMMENTS_LINK);
 		clickToElement(driver, AbstractPageUI.COMMENTS_LINK);
-		return PageGeneratorManager.getCommentsPage(driver);
+		return PageGeneratorManager.getCommentsAdminPage(driver);
 	}
 
 	public FeedbackPageObject clickToFeedBackMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.FEEDBACK_LINK);
 		clickToElement(driver, AbstractPageUI.FEEDBACK_LINK);
-		return PageGeneratorManager.getFeedbackPage(driver);
+		return PageGeneratorManager.getFeedbackAdminPage(driver);
 	}
 
 	public LinksPageObject clickToLinksMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.LINKS_LINK);
 		clickToElement(driver, AbstractPageUI.LINKS_LINK);
-		return PageGeneratorManager.getLinksPage(driver);
+		return PageGeneratorManager.getLinksAdminPage(driver);
 	}
 
 	public MediaPageObject clickToMediaMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.MEDIA_LINK);
 		clickToElement(driver, AbstractPageUI.MEDIA_LINK);
-		return PageGeneratorManager.getMediaPage(driver);
+		return PageGeneratorManager.getMediaAdminPage(driver);
 	}
 
-	public PostsPageObject clickToPostMenu(WebDriver driver) {
+	public PostsAdminPageObject clickToPostMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.POSTS_LINK);
 		clickToElement(driver, AbstractPageUI.POSTS_LINK);
-		return PageGeneratorManager.getPostsPage(driver);
+		return PageGeneratorManager.getPostsAdminPage(driver);
 	}
 
 	public ProfilePageObject clickToProfileMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.PROFILE_LINK);
 		clickToElement(driver, AbstractPageUI.PROFILE_LINK);
-		return PageGeneratorManager.getProfilePage(driver);
+		return PageGeneratorManager.getProfileAdminPage(driver);
 	}
 
 	public SettingsPageObject clickToSettingsMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.SETTINGS_LINK);
 		clickToElement(driver, AbstractPageUI.SETTINGS_LINK);
-		return PageGeneratorManager.getSettingsPage(driver);
+		return PageGeneratorManager.getSettingsAdminPage(driver);
 	}
 
 	public ToolsPageObject clickToToolsMenu(WebDriver driver) {
 		waitForElementClickable(driver, AbstractPageUI.TOOLS_LINK);
 		clickToElement(driver, AbstractPageUI.TOOLS_LINK);
-		return PageGeneratorManager.getToolsPage(driver);
+		return PageGeneratorManager.getToolsAdminPage(driver);
 	}
 
 	// Dynamic locator : Apply app 10-15 pages
-	public AbstractPage clickToDynamicPageMenu(WebDriver driver, String pageName) {
+	public AbstractPage openMenuByPageName(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
 		if (pageName.equals("Posts")) {
-			return PageGeneratorManager.getPostsPage(driver);
+			return PageGeneratorManager.getPostsAdminPage(driver);
 		} else if (pageName.equals("Pages")) {
-			return PageGeneratorManager.getPagesPage(driver);
+			return PageGeneratorManager.getPagesAdminPage(driver);
 		} else if (pageName.equals("Media")) {
-			return PageGeneratorManager.getMediaPage(driver);
+			return PageGeneratorManager.getMediaAdminPage(driver);
 
 		} else if (pageName.equals("Links")) {
-			return PageGeneratorManager.getLinksPage(driver);
+			return PageGeneratorManager.getLinksAdminPage(driver);
 		} else {
-			return PageGeneratorManager.getDashBoardPage(driver);
+			return PageGeneratorManager.getDashBoardAdminPage(driver);
 		}
 	}
 
 	// Dynamic locator: Apply for much page
-	public void clickToDynamicMuchPageMenu(WebDriver driver, String pageName) {
+	public void openMenuByDynamicPageName(WebDriver driver, String pageName) {
 		waitForElementClickable(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_PAGE_LINK, pageName);
+	}
+
+	public HomeUserPageObject openUserPage(WebDriver driver) {
+		openUrl(driver, GlobalConstants.WORDPRESS_USER_URL);
+		return PageGeneratorManager.getHomeUserPage(driver);
+	}
+
+	public DashBoardPageObject openAdminLoggedPage(WebDriver driver) {
+		openUrl(driver, "Admin Page URL");
+		return PageGeneratorManager.getDashBoardAdminPage(driver);
+	}
+
+	public SearchResultPageObject inputToSearchTextBoxAtUserPage(WebDriver driver, String value) {
+		// wait
+		// send key
+		// click Search button
+		return PageGeneratorManager.getSearchResultUserPage(driver);
+	}
+
+	public boolean isValueDisplayAtColumnName(WebDriver driver, String columnName, String value) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, value);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME,columnName, value);
+	}
+
+	public boolean isNewPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String titlePost, String dateCreated) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
+	}
+	public boolean isPostImageDisplayedTitleName(WebDriver driver, String titlePost, String imageName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName) && isImageLoaded(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE);
+	}
+
+	public PostDetailPageObject clickToDetailPostByTitleName(WebDriver driver,String titleName) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
+		clickToElement(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
+		return PageGeneratorManager.getPostDetailUserPage(driver);
+	}
+	public boolean isCategoryNameDisplayed(WebDriver driver, String categoryName) {
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
+	}
+	public boolean isTitleNameDisplayed(WebDriver driver, String title) {
+
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
+	}
+	public boolean isContentDisplayed(WebDriver driver, String content) {
+
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
+	}
+	public boolean isDateCreatedDisplayed(WebDriver driver, String today) {
+
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
+	}
+	public boolean isPostImageDisplayed(WebDriver driver, String imageName) {
+
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_IMAGE, imageName);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, imageName);
+	}
+	public boolean isAuthorDisplayed(WebDriver driver, String author) {
+
+		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_AUTHOR, author);
+		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_AUTHOR, author);
 	}
 
 	private Select select;

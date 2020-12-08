@@ -7,4 +7,9 @@ public class DataTablePageUI {
 
 	public static final String DYNAMIC_PAGE_SELECTED_BY_INDEX = "//a[@class='qgrd-pagination-page-link' and text()='%s']";
 	public static final String DYNAMIC_PAGE_ACTIVED_BY_INDEX = "//a[@class='qgrd-pagination-page-link active' and text()='%s']";
+	
+	public static final String DYNAMIC_COLUMN_POSITION_INDEX = "//th[text()='%s']/preceding-sibling::th";
+	public static final String DYNAMIC_TEXTBOX_BY_ROW_AND_COLUMN_INDEX = "//tr[%s]/td[%s]/input";
+	
+	
 }

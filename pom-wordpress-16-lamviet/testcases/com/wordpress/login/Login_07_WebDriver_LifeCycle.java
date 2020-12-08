@@ -6,15 +6,16 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import com.wordpress.testdata.PageGeneratorManager;
+
 import browserFactory.DriverManager;
 import common.AbstractTest;
-import pageObjects.WordPress.DashBoardPageObject;
-import pageObjects.WordPress.LinksPageObject;
-import pageObjects.WordPress.LoginPageObject;
-import pageObjects.WordPress.MediaPageObject;
-import pageObjects.WordPress.PagesPageObject;
-import pageObjects.WordPress.PostsPageObject;
+import common.PageGeneratorManager;
+import pageObjects.admin.WordPress.DashBoardPageObject;
+import pageObjects.admin.WordPress.LinksPageObject;
+import pageObjects.admin.WordPress.LoginPageObject;
+import pageObjects.admin.WordPress.MediaPageObject;
+import pageObjects.admin.WordPress.PagesPageObject;
+import pageObjects.admin.WordPress.PostsAdminPageObject;
 
 public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	WebDriver driver;
@@ -26,7 +27,7 @@ public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 		
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 	}
 
 	
@@ -34,9 +35,8 @@ public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	public void TC_01_LoginToSystem() {
 		loginPage.inputToEmailTextBox("automationeditor");
 		loginPage.clickToContinueOrLoginButton();
-		loginPage.inputToPwTextBox("automationfc");
-		loginPage.clickToContinueOrLoginButton();
-		dashboardPage = new DashBoardPageObject(driver);
+		loginPage.inputToPwTextBox("automationfc");		
+		dashboardPage =loginPage.clickToContinueOrLoginButton();
 		Assert.assertTrue(dashboardPage.isHeaderTextDisplay());
 
 	}
@@ -66,7 +66,7 @@ public class Login_07_WebDriver_LifeCycle extends AbstractTest {
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;
-	PostsPageObject postPage;
+	PostsAdminPageObject postPage;
 	MediaPageObject mediaPage;
 	PagesPageObject pagesPage;
 	LinksPageObject linksPage;

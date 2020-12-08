@@ -22,7 +22,7 @@ public abstract class DriverManager {
 		if (driver == null) {
 			createDriver();
 		}
-		driver.get(GlobalConstants.WORDPRESS_URL);
+		driver.get(GlobalConstants.WORDPRESS_ADMIN_URL);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		return driver;
 		

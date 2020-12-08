@@ -1,5 +1,5 @@
 eclipse.preferences.version=1
 encoding//actions/common/AbstractPage.java=UTF-8
 encoding//actions/common/AbstractTest.java=UTF-8
-encoding//actions/pageObjects/WordPress/MediaPageObject.java=UTF-8
+encoding//actions/pageObjects/admin/WordPress/MediaPageObject.java=UTF-8
 encoding//testcases/com/bankguru/login/Login_01_RegisterAndLogin.java=UTF-8

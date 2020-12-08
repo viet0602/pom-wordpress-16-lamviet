@@ -3,6 +3,9 @@ package common;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -15,6 +18,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public abstract class AbstractTest {
 	private WebDriver driver;
+	protected final Log log;
+
+	protected AbstractTest() {
+		log = LogFactory.getLog(getClass());
+	}
 
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equalsIgnoreCase("chrome")) {
@@ -76,9 +84,9 @@ public abstract class AbstractTest {
 		boolean pass = true;
 		try {
 			if (condition == true) {
-				// log.info(" -------------------------- PASSED -------------------------- ");
+				log.info(" -------------------------- PASSED -------------------------- ");
 			} else {
-				// log.info(" -------------------------- FAILED -------------------------- ");
+				log.info(" -------------------------- FAILED -------------------------- ");
 			}
 			Assert.assertTrue(condition);
 		} catch (Throwable e) {
@@ -126,6 +134,35 @@ public abstract class AbstractTest {
 		Random rand = new Random();
 		return rand.nextInt(999999);
 
+	}
+
+	protected String getCurrentDay() {
+		DateTime nowUTC = new DateTime();
+		int day = nowUTC.getDayOfMonth();
+		if (day < 10) {
+			String dayValue = "0" + day;
+			return dayValue;
+		}
+		return String.valueOf(day);
+	}
+
+	protected String getCurrentMonth() {
+		DateTime now = new DateTime();
+		int month = now.getMonthOfYear();
+		if (month < 10) {
+			String monthValue = "0" + month;
+			return monthValue;
+		}
+		return String.valueOf(month);
+	}
+
+	protected String getCurrentYear() {
+		DateTime now = new DateTime();
+		return String.valueOf(now.getYear());
+	}
+
+	protected String getWordPressToday() {
+		return getCurrentDay() + "/" + getCurrentMonth() + "/" + getCurrentYear();
 	}
 
 }

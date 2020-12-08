@@ -7,15 +7,14 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.wordpress.testdata.PageGeneratorManager;
-
 import common.AbstractTest;
-import pageObjects.WordPress.DashBoardPageObject;
-import pageObjects.WordPress.LinksPageObject;
-import pageObjects.WordPress.LoginPageObject;
-import pageObjects.WordPress.MediaPageObject;
-import pageObjects.WordPress.PagesPageObject;
-import pageObjects.WordPress.PostsPageObject;
+import common.PageGeneratorManager;
+import pageObjects.admin.WordPress.DashBoardPageObject;
+import pageObjects.admin.WordPress.LinksPageObject;
+import pageObjects.admin.WordPress.LoginPageObject;
+import pageObjects.admin.WordPress.MediaPageObject;
+import pageObjects.admin.WordPress.PagesPageObject;
+import pageObjects.admin.WordPress.PostsAdminPageObject;
 
 public class Media_09_UploadImages extends AbstractTest {
 	WebDriver driver;
@@ -29,7 +28,7 @@ public class Media_09_UploadImages extends AbstractTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 		loginPage.inputToEmailTextBox("automationeditor");
 		loginPage.clickToContinueOrLoginButton();
 		loginPage.inputToPwTextBox("automationfc");
@@ -42,7 +41,7 @@ public class Media_09_UploadImages extends AbstractTest {
 	public void TC_01_Upload_Images() {
 
 		// Post > Media
-		mediaPage = (MediaPageObject) dashboardPage.clickToDynamicPageMenu(driver, "Media");
+		mediaPage = (MediaPageObject) dashboardPage.openMenuByPageName(driver, "Media");
 
 		mediaPage.clickToAddNewbutton();
 		mediaPage.uploadMultiple(driver, pic1, pic2, pic3);
@@ -60,7 +59,7 @@ public class Media_09_UploadImages extends AbstractTest {
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;
-	PostsPageObject postPage;
+	PostsAdminPageObject postPage;
 	MediaPageObject mediaPage;
 	PagesPageObject pagesPage;
 	LinksPageObject linksPage;

@@ -8,13 +8,12 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.wordpress.testdata.PageGeneratorManager;
-
 import browserFactory.BrowserDriverFactory;
 import browserFactory.DriverManager;
 import common.AbstractTest;
-import pageObjects.WordPress.DashBoardPageObject;
-import pageObjects.WordPress.LoginPageObject;
+import common.PageGeneratorManager;
+import pageObjects.admin.WordPress.DashBoardPageObject;
+import pageObjects.admin.WordPress.LoginPageObject;
 
 public class Login_10_Assert_Verify extends AbstractTest{
 	WebDriver driver;
@@ -27,7 +26,7 @@ public class Login_10_Assert_Verify extends AbstractTest{
 		driverManager = BrowserDriverFactory.getBrowserDriver(browserName);
 		driver = driverManager.getDriver();
 		
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 		loginUrl = loginPage.getLoginPageUrl();
 	}
 

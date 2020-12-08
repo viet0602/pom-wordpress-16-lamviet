@@ -7,16 +7,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import com.wordpress.testdata.PageGeneratorManager;
-
 import browserFactory.DriverManager;
 import common.AbstractTest;
-import pageObjects.WordPress.DashBoardPageObject;
-import pageObjects.WordPress.LinksPageObject;
-import pageObjects.WordPress.LoginPageObject;
-import pageObjects.WordPress.MediaPageObject;
-import pageObjects.WordPress.PagesPageObject;
-import pageObjects.WordPress.PostsPageObject;
+import common.PageGeneratorManager;
+import pageObjects.admin.WordPress.DashBoardPageObject;
+import pageObjects.admin.WordPress.LinksPageObject;
+import pageObjects.admin.WordPress.LoginPageObject;
+import pageObjects.admin.WordPress.MediaPageObject;
+import pageObjects.admin.WordPress.PagesPageObject;
+import pageObjects.admin.WordPress.PostsAdminPageObject;
 
 public class Login_08_Dynamic_Locator extends AbstractTest {
 	WebDriver driver;
@@ -28,7 +27,7 @@ public class Login_08_Dynamic_Locator extends AbstractTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 
-		loginPage = PageGeneratorManager.getLoginPage(driver);
+		loginPage = PageGeneratorManager.getLoginAdminPage(driver);
 	}
 
 	@Test
@@ -46,41 +45,41 @@ public class Login_08_Dynamic_Locator extends AbstractTest {
 	public void TC_02_LessPage() {
 
 		// Dashboard > Post
-		postPage = (PostsPageObject) dashboardPage.clickToDynamicPageMenu(driver, "Posts");
+		postPage = (PostsAdminPageObject) dashboardPage.openMenuByPageName(driver, "Posts");
 		// Post > Media
-		mediaPage = (MediaPageObject) postPage.clickToDynamicPageMenu(driver, "Media");
+		mediaPage = (MediaPageObject) postPage.openMenuByPageName(driver, "Media");
 
 		// Media > Links
-		linksPage = (LinksPageObject) mediaPage.clickToDynamicPageMenu(driver, "Links");
+		linksPage = (LinksPageObject) mediaPage.openMenuByPageName(driver, "Links");
 
 		// Links >Pages
-		pagesPage = (PagesPageObject) linksPage.clickToDynamicPageMenu(driver, "Pages");
+		pagesPage = (PagesPageObject) linksPage.openMenuByPageName(driver, "Pages");
 		// Pages > Post
-		postPage = (PostsPageObject) pagesPage.clickToDynamicPageMenu(driver, "Posts");
+		postPage = (PostsAdminPageObject) pagesPage.openMenuByPageName(driver, "Posts");
 		// Post > Links
-		linksPage = (LinksPageObject) postPage.clickToDynamicPageMenu(driver, "Links");
+		linksPage = (LinksPageObject) postPage.openMenuByPageName(driver, "Links");
 	}
 
 	@Test
 	public void TC_03_MuchPage() {
 		// Dashboard > Post
-		dashboardPage.clickToDynamicMuchPageMenu(driver, "Posts");
-		postPage = PageGeneratorManager.getPostsPage(driver);
+		dashboardPage.openMenuByDynamicPageName(driver, "Posts");
+		postPage = PageGeneratorManager.getPostsAdminPage(driver);
 		// Post > Media
-		postPage.clickToDynamicMuchPageMenu(driver, "Media");
-		mediaPage = PageGeneratorManager.getMediaPage(driver);
+		postPage.openMenuByDynamicPageName(driver, "Media");
+		mediaPage = PageGeneratorManager.getMediaAdminPage(driver);
 		// Media > Links
-		mediaPage.clickToDynamicMuchPageMenu(driver, "Links");
-		linksPage = PageGeneratorManager.getLinksPage(driver);
+		mediaPage.openMenuByDynamicPageName(driver, "Links");
+		linksPage = PageGeneratorManager.getLinksAdminPage(driver);
 		// Links >Pages
-		linksPage.clickToDynamicMuchPageMenu(driver, "Pages");
-		pagesPage = PageGeneratorManager.getPagesPage(driver);
+		linksPage.openMenuByDynamicPageName(driver, "Pages");
+		pagesPage = PageGeneratorManager.getPagesAdminPage(driver);
 		// Pages > Post
-		pagesPage.clickToDynamicMuchPageMenu(driver, "Posts");
-		postPage = PageGeneratorManager.getPostsPage(driver);
+		pagesPage.openMenuByDynamicPageName(driver, "Posts");
+		postPage = PageGeneratorManager.getPostsAdminPage(driver);
 		// Post > Links
-		postPage.clickToDynamicMuchPageMenu(driver, "Links");
-		linksPage = PageGeneratorManager.getLinksPage(driver);
+		postPage.openMenuByDynamicPageName(driver, "Links");
+		linksPage = PageGeneratorManager.getLinksAdminPage(driver);
 	}
 
 	@AfterClass
@@ -91,7 +90,7 @@ public class Login_08_Dynamic_Locator extends AbstractTest {
 	String loginUrl;
 	LoginPageObject loginPage;
 	DashBoardPageObject dashboardPage;
-	PostsPageObject postPage;
+	PostsAdminPageObject postPage;
 	MediaPageObject mediaPage;
 	PagesPageObject pagesPage;
 	LinksPageObject linksPage;

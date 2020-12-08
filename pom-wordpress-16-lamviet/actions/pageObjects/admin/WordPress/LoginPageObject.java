@@ -1,8 +1,9 @@
-package pageObjects.WordPress;
+package pageObjects.admin.WordPress;
 
 import org.openqa.selenium.WebDriver;
 
 import common.AbstractPage;
+import common.PageGeneratorManager;
 import pageUI.WordPress.LoginPageUI;
 
 public class LoginPageObject extends AbstractPage {
@@ -18,9 +19,10 @@ public class LoginPageObject extends AbstractPage {
 		sendkeyToElement(driver,LoginPageUI.EMAIL_TEXTBOX , email);
 		
 	}
-	public void clickToContinueOrLoginButton() {
+	public DashBoardPageObject clickToContinueOrLoginButton() {
 		waitForElementVisible(driver, LoginPageUI.CONTINUE_ORLOGIN_BUTTOM);
 		clickToElement(driver,LoginPageUI.CONTINUE_ORLOGIN_BUTTOM);
+		return PageGeneratorManager.getDashBoardAdminPage(driver);
 		
 	}
 	public void inputToPwTextBox(String pw) {
