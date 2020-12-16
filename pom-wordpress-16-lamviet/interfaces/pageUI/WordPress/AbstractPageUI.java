@@ -16,7 +16,9 @@ public class AbstractPageUI {
 	public static final String ALL_UPLOADED_IMAGE = "//div[@class='thumbnail']//img";
 	public static final String DYNAMIC_ROW_VALUE_AT_COLUMN_NAME = "//td[@data-colname='%s']//a[text()='%s']";
 	public static final String DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE = "//p[@class='post-categories']/a[text()='%s']/parent::p/following-sibling::h2[@class='post-title']/a[text()='%s']/parent::h2/following-sibling::p[@class='post-meta']/a[text()='%s']";
+	
 	public static final String DYNAMIC_TITLE_POST_WITH_IMAGE = "//a[@title='%s']/img[contains(@src,'%s')]";
+	
 	public static final String DYNAMIC_TITLE_POST_ADMIN_PAGE = "//h2[@class='post-title']//a[text()='%s']";
 	public static final String DETAIL_PAGE_CATEGOGY = "//header[@class='post-header']//a[text()='%s']";
 	public static final String DETAIL_PAGE_TITLE = "//header[@class='post-header']//h1[text()='%s']";
@@ -24,6 +26,12 @@ public class AbstractPageUI {
 	public static final String DETAIL_PAGE_CREATED_DATE = "//span[@class='post-meta-date']//a[(text()='%s' )]";
 	public static final String DETAIL_PAGE_AUTHOR = "//span[@class='post-meta-author']/a[text()='%s']";
 	public static final String DETAIL_PAGE_IMAGE = "//figure[@class='post-image clear-fix']//img[contains(@src,'%s')]";
+	
+	public static final String SEARCH_ICON_START = "//a[@class='search-toggle']";
+	public static final String SEARCH_INPUT_TEXTBOX = "//input[@type='search']";
+	public static final String SEARCH_ICON_ENTER = "//span[@class='fa fw fa-search']";
+	
+	
 	
 
 }

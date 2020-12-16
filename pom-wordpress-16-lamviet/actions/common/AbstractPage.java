@@ -1,6 +1,7 @@
 package common;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.openqa.selenium.By;
@@ -12,7 +13,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import pageObjects.admin.WordPress.CommentsPageObject;
 import pageObjects.admin.WordPress.DashBoardPageObject;
 import pageObjects.admin.WordPress.FeedbackPageObject;
@@ -155,7 +155,7 @@ public abstract class AbstractPage {
 
 	public void selectValueInDropdown(WebDriver driver, String locator, String value) {
 		select = new Select(findElementByXpath(driver, locator));
-		select.selectByValue(value);
+		select.selectByVisibleText(value);
 	}
 
 	public String getSelectedValueInDropdown(WebDriver driver, String locator) {
@@ -171,7 +171,8 @@ public abstract class AbstractPage {
 		}
 	}
 
-	public void SelectItemInDropDownList(WebDriver driver, String parentXpath, String allItemXpath, String expectedValueItem) {
+	public void SelectItemInDropDownList(WebDriver driver, String parentXpath, String allItemXpath,
+			String expectedValueItem) {
 		// Click vào 1 thẻ cha để nó xổ ra tất cả các item con bên trong
 		element = findElementByXpath(driver, allItemXpath);
 		jsExecutor.executeScript("arguments[0].click();", element);
@@ -276,7 +277,8 @@ public abstract class AbstractPage {
 
 	public Object executeForBrowser(WebDriver driver, String expectedText) {
 		jsExecutor = (JavascriptExecutor) driver;
-		String textActual = (String) jsExecutor.executeScript("return document.documentElement.innerText.match(" + expectedText + "')[0]");
+		String textActual = (String) jsExecutor
+				.executeScript("return document.documentElement.innerText.match(" + expectedText + "')[0]");
 		return textActual.equals(expectedText);
 	}
 
@@ -289,9 +291,11 @@ public abstract class AbstractPage {
 		jsExecutor = (JavascriptExecutor) driver;
 		element = findElementByXpath(driver, locator);
 		String originalStyle = element.getAttribute("style");
-		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style", "border: 5px solid red; border-style: dashed;");
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style",
+				"border: 5px solid red; border-style: dashed;");
 		sleepInSecond(1);
-		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style", originalStyle);
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1],arguments[2])", element, "style",
+				originalStyle);
 	}
 
 	public void clickToElementByJS(WebDriver driver, String locator) {
@@ -313,12 +317,14 @@ public abstract class AbstractPage {
 	// Dynamic locator
 	public void scrollToElementByJS(WebDriver driver, String locator, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", findElementByXpath(driver, castToObject(locator, values)));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);",
+				findElementByXpath(driver, castToObject(locator, values)));
 	}
 
 	public void removeAttributeInDOM(WebDriver driver, String locator, String attributeRemove) {
 		jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeRemove + "');", findElementByXpath(driver, locator));
+		jsExecutor.executeScript("arguments[0].setAttribute('" + attributeRemove + "');",
+				findElementByXpath(driver, locator));
 	}
 
 	public void uploadMultiple(WebDriver driver, String... fileNames) {
@@ -370,7 +376,11 @@ public abstract class AbstractPage {
 
 	public boolean isImageLoaded(WebDriver driver, String locator) {
 		jsExecutor = (JavascriptExecutor) driver;
-		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof argumentes[0]" + ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0", findElementByXpath(driver, locator));
+		boolean status = (boolean) jsExecutor
+				.executeScript(
+						"return arguments[0].complete && typeof argumentes[0]"
+								+ ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0",
+						findElementByXpath(driver, locator));
 		if (status) {
 			return true;
 		}
@@ -379,7 +389,12 @@ public abstract class AbstractPage {
 
 	public boolean isImageLoaded(WebDriver driver, String locator, String... values) {
 		jsExecutor = (JavascriptExecutor) driver;
-		boolean status = (boolean) jsExecutor.executeScript("return arguments[0].complete && typeof argumentes[0]" + ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0", findElementByXpath(driver, (castToObject(locator, values))));
+		boolean status = (boolean) jsExecutor
+				.executeScript(
+						"return arguments[0].complete && typeof argumentes[0]"
+								+ ".naturalWitdth!='underfined' && arguments[0]" + ".naturalWidth>0",
+						findElementByXpath(driver, castToObject(locator, values)));
+
 		if (status) {
 			return true;
 		}
@@ -519,10 +534,13 @@ public abstract class AbstractPage {
 		return PageGeneratorManager.getDashBoardAdminPage(driver);
 	}
 
-	public SearchResultPageObject inputToSearchTextBoxAtUserPage(WebDriver driver, String value) {
-		// wait
-		// send key
-		// click Search button
+	public SearchResultPageObject inputToSearchTextBoxAtUserPage(WebDriver driver, String titlePost) {
+		waitForElementClickable(driver, AbstractPageUI.SEARCH_ICON_START);
+		clickToElement(driver, AbstractPageUI.SEARCH_ICON_START);
+		waitForElementVisible(driver, AbstractPageUI.SEARCH_INPUT_TEXTBOX);
+		sendkeyToElement(driver, AbstractPageUI.SEARCH_INPUT_TEXTBOX, titlePost);
+		waitForElementClickable(driver, AbstractPageUI.SEARCH_ICON_ENTER);
+		clickToElement(driver, AbstractPageUI.SEARCH_ICON_ENTER);
 		return PageGeneratorManager.getSearchResultUserPage(driver);
 	}
 
@@ -531,55 +549,160 @@ public abstract class AbstractPage {
 		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_ROW_VALUE_AT_COLUMN_NAME, columnName, value);
 	}
 
-	public boolean isNewPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String titlePost, String dateCreated) {
-		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
-		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost, dateCreated);
-	}
-
-	public boolean isPostImageDisplayedTitleName(WebDriver driver, String titlePost, String imageName) {
-		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName);
-		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName) && isImageLoaded(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE);
-	}
-
 	public PostDetailPageObject clickToDetailPostByTitleName(WebDriver driver, String titleName) {
 		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
 		clickToElement(driver, AbstractPageUI.DYNAMIC_TITLE_POST_ADMIN_PAGE, titleName);
 		return PageGeneratorManager.getPostDetailUserPage(driver);
 	}
 
-	public boolean isCategoryNameDisplayed(WebDriver driver, String categoryName) {
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CATEGOGY, categoryName);
+	public boolean isNewPostDisplayedOnLatestPost(WebDriver driver, String categoryName, String titlePost,
+			String dateCreated) {
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost,
+				dateCreated);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_POST_WITH_CATEGORY_TITLE_DATE, categoryName, titlePost,
+				dateCreated);
 	}
 
-	public boolean isTitleNameDisplayed(WebDriver driver, String title) {
-
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_TITLE, title);
+	public boolean isPostImageDisplayedTitleName(WebDriver driver, String titlePost, String imageName) {
+		imageName = imageName.split("\\.")[0];
+		waitForElementVisible(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName);
+		return isElementDisplayed(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE, titlePost, imageName);
+		// && isImageLoaded(driver, AbstractPageUI.DYNAMIC_TITLE_POST_WITH_IMAGE,
+		// titlePost, imageName);
 	}
 
-	public boolean isContentDisplayed(WebDriver driver, String content) {
+	public boolean isDataSortedAscending(WebDriver driver, String locator) {
+		// Khai bao 1 array list
+		ArrayList<String> arrayList = new ArrayList<>();
+		// Tim tat ca element matching voi dieu kien (Name/Price)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+		// Lay text cua Tung element add vao Array List
+		for (WebElement element : elementList) {
+			arrayList.add(element.getText());
+		}
+		System.out.println("-------Du lieu tren UI:------");
+		for (String name : arrayList) {
+			System.out.println(name);
+		}
+		// Copy qua 1 array list moi de Sort trong Code
+		ArrayList<String> sortedList = new ArrayList<>();
+		for (String child : arrayList) {
+			sortedList.add(child);
+		}
+		// Thuc hien Sort ASC
+		Collections.sort(sortedList);
+		System.out.println("-------Du lieu tren CODE:------");
+		for (String name : sortedList) {
+			System.out.println(name);
+		}
+		// Verify 2 array bang nhau - neu du lieu sort tren UI khong chinh xac thi ket
+		// qua tra ve sai
 
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CONTENT, content);
+		return sortedList.equals(arrayList);
 	}
 
-	public boolean isDateCreatedDisplayed(WebDriver driver, String today) {
+	public boolean isDataSortedDescending(WebDriver driver, String locator) {
+		// Khai bao 1 array list
+		ArrayList<String> arrayList = new ArrayList<>();
+		// Tim tat ca element matching voi dieu kien (Name/Price)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+		// Lay text cua Tung element add vao Array List
+		for (WebElement element : elementList) {
+			arrayList.add(element.getText());
+		}
+		System.out.println("-------Du lieu tren UI:------");
+		for (String name : arrayList) {
+			System.out.println(name);
+		}
+		// Copy qua 1 array list moi de Sort trong Code
+		ArrayList<String> sortedList = new ArrayList<>();
+		for (String child : arrayList) {
+			sortedList.add(child);
+		}
+		// Thuc hien Sort ASC
+		Collections.sort(sortedList);
+		
+		System.out.println("-------Du lieu da sort ASC tren CODE:------");
+		for (String name : sortedList) {
+			System.out.println(name);
+		}
+		// Reverse data de sort DESC(Dung 1 trong 2 cach ben duoi)
+		Collections.reverse(sortedList);
+		// Collections.sort(arrayList.Collections.reverseOrder());
+		System.out.println("-------Du lieu da sort DESC tren CODE:------");
+		for (String name : sortedList) {
+			System.out.println(name);
+		}
+		// Verify 2 array bang nhau - neu du lieu sort tren UI khong chinh xac thi ket
+		// qua tra ve sai
 
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, today);
+		return sortedList.equals(arrayList);
+
 	}
-
-	public boolean isPostImageDisplayed(WebDriver driver, String imageName) {
-
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_IMAGE, imageName);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_CREATED_DATE, imageName);
+	public boolean isDataFloatSortedAscending(WebDriver driver, String locator) {
+		// Khai bao 1 array list
+		ArrayList<Float> arrayList = new ArrayList<>();
+		// Tim tat ca element matching voi dieu kien (Name/Price)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+		// Lay text cua Tung element add vao Array List
+		for (WebElement element : elementList) {
+			arrayList.add(Float.parseFloat(element.getText().replace("$", "").trim()));
+		}
+		System.out.println("-------Du lieu tren UI:------");
+		for (Float name : arrayList) {
+			System.out.println(name);
+		}
+		// Copy qua 1 array list moi de Sort trong Code
+		ArrayList<Float> sortedList = new ArrayList<>();
+		for (Float child : arrayList) {
+			sortedList.add(child);
+		}
+		// Thuc hien Sort ASC
+		Collections.sort(sortedList);
+		
+		System.out.println("-------Du lieu da sort ASC tren CODE:------");
+		for (Float name : sortedList) {
+			System.out.println(name);
+		}
+		return sortedList.equals(arrayList);
 	}
+	public boolean isDataFloatSortedDescending(WebDriver driver, String locator) {
+		// Khai bao 1 array list
+		ArrayList<Float> arrayList = new ArrayList<>();
+		// Tim tat ca element matching voi dieu kien (Name/Price)
+		List<WebElement> elementList = findElementsByXpath(driver, locator);
+		// Lay text cua Tung element add vao Array List
+		for (WebElement element : elementList) {
+			arrayList.add(Float.parseFloat(element.getText().replace("$", "").trim()));
+		}
+		System.out.println("-------Du lieu tren UI:------");
+		for (Float name : arrayList) {
+			System.out.println(name);
+		}
+		// Copy qua 1 array list moi de Sort trong Code
+		ArrayList<Float> sortedList = new ArrayList<>();
+		for (Float child : arrayList) {
+			sortedList.add(child);
+		}
+		// Thuc hien Sort ASC
+		Collections.sort(sortedList);
+		
+		System.out.println("-------Du lieu da sort ASC tren CODE:------");
+		for (Float name : sortedList) {
+			System.out.println(name);
+		}
+		// Reverse data de sort DESC(Dung 1 trong 2 cach ben duoi)
+		Collections.reverse(sortedList);
+		// Collections.sort(arrayList.Collections.reverseOrder());
+		System.out.println("-------Du lieu da sort DESC tren CODE:------");
+		for (Float name : sortedList) {
+			System.out.println(name);
+		}
+		// Verify 2 array bang nhau - neu du lieu sort tren UI khong chinh xac thi ket
+		// qua tra ve sai
 
-	public boolean isAuthorDisplayed(WebDriver driver, String author) {
+		return sortedList.equals(arrayList);
 
-		waitForElementVisible(driver, AbstractPageUI.DETAIL_PAGE_AUTHOR, author);
-		return isElementDisplayed(driver, AbstractPageUI.DETAIL_PAGE_AUTHOR, author);
 	}
 
 	private Select select;

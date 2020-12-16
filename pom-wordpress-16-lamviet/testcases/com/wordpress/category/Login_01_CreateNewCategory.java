@@ -20,9 +20,13 @@ public class Login_01_CreateNewCategory extends AbstractTest {
 	String imageName = "image.jpg";
 	int fakeNumber = randomNumber();
 	String title = "[Vicky0602]Title_Live_Coding test" + fakeNumber;
+	String editTitle = "[Edit_Vicky0602]Title_Live_Coding test" + fakeNumber;
 	String content = "[Vicky0602]Content Live coding test" + fakeNumber;
+	String editContent = "[Edit_Vicky0602]Content Live coding test" + fakeNumber;
 	String tagName = "Vicky0602" + fakeNumber;
+	String editTagname = "Edit_Vicky0602" + fakeNumber;
 	String categoryName = "NEW LIVE CODING";
+	String editCategoryName = "EDIT LIVE CODING";
 	String author = "Automation FC";
 	String today = getWordPressToday();
 
@@ -77,78 +81,83 @@ public class Login_01_CreateNewCategory extends AbstractTest {
 		// Go Post Detail At User Page
 		postDetailUserPage = homeUserPage.clickToDetailPostByTitleName(driver, title);
 
-		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(driver, categoryName));
-		verifyTrue(postDetailUserPage.isTitleNameDisplayed(driver, title));
-		verifyTrue(postDetailUserPage.isContentDisplayed(driver, content));
-		verifyTrue(postDetailUserPage.isDateCreatedDisplayed(driver, today));
-		verifyTrue(postDetailUserPage.isPostImageDisplayed(driver, imageName));
-		verifyTrue(postDetailUserPage.isAuthorDisplayed(driver, author));
+		verifyTrue(postDetailUserPage.isCategoryNameDisplayed(categoryName));
+		verifyTrue(postDetailUserPage.isTitleNameDisplayed(title));
+		verifyTrue(postDetailUserPage.isContentDisplayed(content));
+		verifyTrue(postDetailUserPage.isDateCreatedDisplayed(today));
+		verifyTrue(postDetailUserPage.isPostImageDisplayed(imageName));
+		verifyTrue(postDetailUserPage.isAuthorDisplayed(author));
 
 		// Search Post at User Page
-		searchResultUserPage = postDetailUserPage.inputToSearchTextBoxAtUserPage(driver, "title");
-		// verifyTrue(searchResultUserPage.isNewPostDisplayedOnLatestPost("category", "title", "date created"));
-		// verifyTrue(searchResultUserPage.isPostImageDisplayedTitleName("title", "NewPost.hpg"));
+		searchResultUserPage = postDetailUserPage.inputToSearchTextBoxAtUserPage(driver, title);
+		verifyTrue(searchResultUserPage.isNewPostDisplayedOnLatestPost(driver, categoryName, title, today));
+		verifyTrue(searchResultUserPage.isPostImageDisplayedTitleName(driver, title, imageName));
 
 	}
 
-//	@Test
-//	public void Post_02_Edit_Post_At_Admin_Page() {
-//		// Navigate to Admin Site
-//		dashboardPage = searchResultUserPage.openAdminLoggedPage(driver);
-//		dashboardPage.openMenuByPageName(driver, "Posts");
-//		postAdminPage = PageGeneratorManager.getPostsAdminPage(driver);
-//
-//		// Search Post At Admin Page
-//		postAdminPage.inputToSearchTextBox("");
-//		postAdminPage.clickToSearchPostsButton();
-//		verifyTrue(postAdminPage.isOnlyOnceRowDisplay("title", "author", "category", "tag"));
-//
-//		// click to Post Detail
-//		newEditPostAdminPage = postAdminPage.clickToDetailPostByTitleName("title");
-//
-//		// Edit Post
-//		newEditPostAdminPage.inputTitleName("");
-//		newEditPostAdminPage.inputBodyPost("");
-//		newEditPostAdminPage.deselectCategory("");
-//		newEditPostAdminPage.selectCategory("");
-//		newEditPostAdminPage.inputTagName("");
-//		newEditPostAdminPage.clickAddButton();
-//		newEditPostAdminPage.clickToDeleteTagIconWithName("tag new name");
-//
-//		newEditPostAdminPage.clickToUpdateButton();
-//		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue("Post Updated"));
-//
-//		// Search Post At Admin
-//		newEditPostAdminPage.openMenuByPageName(driver, "Posts");
-//		postAdminPage = PageGeneratorManager.getPostsAdminPage(driver);
-//		postAdminPage.inputToSearchTextBox("");
-//		postAdminPage.clickToSearchPostsButton();
-//		verifyTrue(postAdminPage.isOnlyOnceRowDisplay("edit_title", "author", "edit_category", "edit_tag"));
-//
-//		// Navigate To User Site
-//
-//		homeUserPage = postAdminPage.openUserPage(driver);
-//		// Design in abstract page (reuse at search result page)
-//		verifyTrue(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "date created"));
-//		verifyTrue(homeUserPage.isPostImageDisplayedTitleName("edit_title", "NewPost.hpg"));
-//		// Go Post Detail At User Page
-//		homeUserPage = postAdminPage.clickToDetailPostByTitleName("edit_title");
-//
-//		verifyTrue(postDetailUserPage.isCategoryNameDisplayed("edit_category"));
-//		verifyTrue(postDetailUserPage.isTitleNameDisplayed("edit_title"));
-//		verifyTrue(postDetailUserPage.isContentDisplayed("edit_content"));
-//		verifyTrue(postDetailUserPage.isDateCreatedDisplayed("date created"));
-//		verifyTrue(postDetailUserPage.isPostImageDisplayed("NewPost.jpg"));
-//		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
-//
-//		// Search Post at User Page
-//
-//		searchResultUserPage = postDetailUserPage.inputToSearchTextBoxAtUserPage(driver, "edit_title");
-//		verifyTrue(searchResultUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "date created"));
-//		verifyTrue(searchResultUserPage.isPostImageDisplayedTitleName("edit_title", "NewPost.hpg"));
-//
-//	}
-//
+	@Test
+	public void Post_02_Edit_Post_At_Admin_Page() {
+		// Navigate to Admin Site
+		dashboardPage = searchResultUserPage.openAdminLoggedPage(driver);
+		dashboardPage.openMenuByPageName(driver, "Posts");
+		postAdminPage = PageGeneratorManager.getPostsAdminPage(driver);
+
+		// Search Post At Admin Page
+
+		postAdminPage.inputToSearchTextBox(title);
+		postAdminPage.clickToSearchPostsButton();
+
+		verifyTrue(postAdminPage.isValueDisplayAtColumnName(driver, "Title", title));
+		verifyTrue(postAdminPage.isValueDisplayAtColumnName(driver, "Author", author));
+		verifyTrue(postAdminPage.isValueDisplayAtColumnName(driver, "Categories", categoryName));
+		verifyTrue(postAdminPage.isValueDisplayAtColumnName(driver, "Tags", tagName));
+		// click to Post Detail
+		// newEditPostAdminPage = postAdminPage.clickToDetailPostByTitleName(driver,
+		// title);
+		newEditPostAdminPage = postAdminPage.clickToDetailPostByTitleName(title);
+		// Edit Post
+		newEditPostAdminPage.inputTitleName(editTitle);
+		newEditPostAdminPage.inputBodyPost(editContent);
+		newEditPostAdminPage.selectCategoryCheckBox(categoryName);// unselect Categoryname
+		newEditPostAdminPage.selectCategoryCheckBox(editCategoryName);
+		newEditPostAdminPage.inputTagName("");
+		newEditPostAdminPage.clickAddButton();
+		newEditPostAdminPage.clickToDeleteTagIconWithName("tag new name");
+
+		newEditPostAdminPage.clickToUpdateButton();
+		verifyTrue(newEditPostAdminPage.isSuccessMessageDisplayedWithValue("Post Updated"));
+
+		// Search Post At Admin
+		newEditPostAdminPage.openMenuByPageName(driver, "Posts");
+		postAdminPage = PageGeneratorManager.getPostsAdminPage(driver);
+		postAdminPage.inputToSearchTextBox("");
+		postAdminPage.clickToSearchPostsButton();
+		verifyTrue(postAdminPage.isOnlyOnceRowDisplay("edit_title", "author", "edit_category", "edit_tag"));
+
+		// Navigate To User Site
+
+		homeUserPage = postAdminPage.openUserPage(driver);
+		// Design in abstract page (reuse at search result page)
+		verifyTrue(homeUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "date created"));
+		verifyTrue(homeUserPage.isPostImageDisplayedTitleName("edit_title", "NewPost.hpg"));
+		// Go Post Detail At User Page
+		homeUserPage = postAdminPage.clickToDetailPostByTitleName("edit_title");
+
+		verifyTrue(postDetailUserPage.isCategoryNameDisplayed("edit_category"));
+		verifyTrue(postDetailUserPage.isTitleNameDisplayed("edit_title"));
+		verifyTrue(postDetailUserPage.isContentDisplayed("edit_content"));
+		verifyTrue(postDetailUserPage.isDateCreatedDisplayed("date created"));
+		verifyTrue(postDetailUserPage.isPostImageDisplayed("NewPost.jpg"));
+		verifyTrue(postDetailUserPage.isAuthorDisplayed("author"));
+
+		// Search Post at User Page
+
+		searchResultUserPage = postDetailUserPage.inputToSearchTextBoxAtUserPage(driver, "edit_title");
+		verifyTrue(searchResultUserPage.isNewPostDisplayedOnLatestPost("edit_category", "edit_title", "date created"));
+		verifyTrue(searchResultUserPage.isPostImageDisplayedTitleName("edit_title", "NewPost.hpg"));
+
+	}
+
 //	@Test
 //	public void Post_03_Delete_Post_At_Admin_Page() {
 //		// Navigate to Admin Site
